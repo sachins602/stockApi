@@ -1,8 +1,10 @@
-package main
+package operations
 
 import (
 	"encoding/json"
 	"fmt"
+	database "goapi/database"
+	models "goapi/models"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -10,7 +12,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func nepseDetails() {
+func NepseDetails() {
 
 	resp, err := http.Get("https://merolagani.com/handlers/webrequesthandler.ashx?type=market_summary")
 	if err != nil {
@@ -24,14 +26,14 @@ func nepseDetails() {
 		log.Fatal(err)
 	}
 
-	var nepseInfo NepseInfo
+	var nepseInfo models.NepseInfo
 
 	err = json.Unmarshal([]byte(body), &nepseInfo)
 
 	if err == nil {
 		fmt.Println("error")
 	}
-	saveDetailsToDb(nepseInfo)
+	database.SaveDetailsToDb(nepseInfo)
 }
 
 // CREATE TABLE stock_details(

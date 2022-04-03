@@ -1,4 +1,4 @@
-package main
+package models
 
 type NepseInfo struct {
 	Mt      string `json:"mt"`

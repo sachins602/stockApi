@@ -1,13 +1,14 @@
-package main
+package database
 
 import (
 	"database/sql"
 	"fmt"
+	model "goapi/models"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func saveDetailsToDb(nepseInfo NepseInfo) {
+func SaveDetailsToDb(nepseInfo model.NepseInfo) {
 	db, err := sql.Open("mysql", "root:@tcp(localhost:3306)/stock")
 
 	if err != nil {
