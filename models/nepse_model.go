@@ -1,5 +1,7 @@
 package models
 
+import "gorm.io/gorm"
+
 type NepseInfo struct {
 	Mt      string `json:"mt"`
 	Overall struct {
@@ -53,4 +55,12 @@ type NepseInfo struct {
 			Q  float64 `json:"q"`
 		} `json:"detail"`
 	} `json:"stock"`
+}
+
+func GetStocks(db *gorm.DB, NepseInfo *NepseInfo) (err error) {
+	err = db.Exec("SELECT ALL FORM stock_details").First(NepseInfo).Error
+	if err != nil {
+		return err
+	}
+	return nil
 }
