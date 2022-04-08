@@ -16,7 +16,7 @@ type UserRepo struct {
 
 func New() *UserRepo {
 	db := database.InitDb()
-	db.AutoMigrate(&models.Stock_details{})
+	// db.AutoMigrate(&models.Stock_details{})
 	return &UserRepo{Db: db}
 }
 

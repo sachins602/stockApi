@@ -4,13 +4,13 @@ import (
 	"net/http"
 
 	api "goapi/api"
-	//nd "goapi/operations"
+	nd "goapi/operations"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	//nd.NepseDetails()
+	nd.NepseDetails()
 	r := setupRouter()
 	_ = r.Run(":8080")
 
