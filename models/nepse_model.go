@@ -1,6 +1,8 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 type NepseInfo struct {
 	Mt      string `json:"mt"`
@@ -56,9 +58,22 @@ type NepseInfo struct {
 		} `json:"detail"`
 	} `json:"stock"`
 }
+type Stock_details struct {
+	// gorm.Model
+	StockName string `json:"StockName"`
+	// N  string  `json:"n"`
+	LastPrice   float64 `json:"LastPrice"`
+	TurnOver    float64 `json:"TurnOver"`
+	Change      float64 `json:"Change"`
+	High        float64 `json:"High"`
+	Low         float64 `json:"Low"`
+	Open        float64 `json:"Open"`
+	ShareTraded float64 `json:"ShareTraded"`
+}
 
-func GetStocks(db *gorm.DB, NepseInfo *NepseInfo) (err error) {
-	err = db.Exec("SELECT ALL FORM stock_details").First(NepseInfo).Error
+func GetStocks(db *gorm.DB, Stock_details *[]Stock_details) (err error) {
+	err = db.Find(Stock_details).Error
+	//Raw("SELECT * FROM `stock_details`(stockName, lastPrice, `turnOver`, `change`, `high`, `low`, `open`, `shareTraded`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);").First(ScripDetail).Error
 	if err != nil {
 		return err
 	}

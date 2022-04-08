@@ -3,15 +3,15 @@ package main
 import (
 	"net/http"
 
-	"goapi/api"
-	nd "goapi/operations"
+	api "goapi/api"
+	//nd "goapi/operations"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	nd.NepseDetails()
-	r := api.setupRouter()
+	//nd.NepseDetails()
+	r := setupRouter()
 	_ = r.Run(":8080")
 
 }

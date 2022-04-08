@@ -46,7 +46,7 @@ func SaveDetailsToDb(nepseInfo model.NepseInfo) {
 		// open = append(open, v.Op)
 		// shareTraded = append(shareTraded, v.Q)
 
-		ins, err := db.Prepare("INSERT INTO stock_details(`stockName`, `lastPrice`, `turnOver`, `change`, `high`, `low`, `open`, `shareTraded`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);")
+		ins, err := db.Prepare("INSERT INTO Stock_details(`stockName`, `lastPrice`, `turnOver`, `change`, `high`, `low`, `open`, `shareTraded`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);")
 
 		if err != nil {
 			fmt.Println("error validating db.Exec arguments")

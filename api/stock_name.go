@@ -16,7 +16,7 @@ type UserRepo struct {
 
 func New() *UserRepo {
 	db := database.InitDb()
-	db.AutoMigrate(&models.NepseInfo{})
+	db.AutoMigrate(&models.Stock_details{})
 	return &UserRepo{Db: db}
 }
 
@@ -32,9 +32,9 @@ func New() *UserRepo {
 //    c.JSON(http.StatusOK, user)
 // }
 
-//get users
+// get users
 func (repository *UserRepo) GetStocks(c *gin.Context) {
-	var stocks []models.NepseInfo
+	var stocks []models.Stock_details
 	err := models.GetStocks(repository.Db, &stocks)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})

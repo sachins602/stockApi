@@ -37,15 +37,15 @@ func NepseDetails() {
 }
 
 // CREATE TABLE stock_details(
-// `stockName` VARCHAR(100),
-// `lastPrice` DOUBLE,
-// `turnOver` DOUBLE,
-// `change` DOUBLE,
-// `high` DOUBLE,
-// `low` DOUBLE,
-// `open` DOUBLE,
-// `shareTraded` DOUBLE
+// `StockName` VARCHAR(100),
+// `LastPrice` DOUBLE,
+// `TurnOver` DOUBLE,
+// `Change` DOUBLE,
+// `High` DOUBLE,
+// `Low` DOUBLE,
+// `Open` DOUBLE,
+// `ShareTraded` DOUBLE
 // );
 
-// INSERT INTO stock_details(`stockName`, `lastPrice`, `turnOver`, `change`, `high`, `low`, `open`, `shareTraded`)
+// INSERT INTO stock_details(`StockName`, `LastPrice`, `TurnOver`, `Change`, `High`, `Low`, `Open`, `ShareTraded`)
 // VALUES ('SHIVM', 1047, 79199051.5, -0.19, 1083, 1025, 1065, 75614);
