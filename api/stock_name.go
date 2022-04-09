@@ -67,6 +67,17 @@ func (repository *UserRepo) GetSector(c *gin.Context) {
 
 }
 
+func (repository *UserRepo) GetIndex(c *gin.Context) {
+	var index []models.Index_details
+	err := models.GetIndex(repository.Db, &index)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, index)
+
+}
+
 // //get user by id
 // func (repository *UserRepo) GetUser(c *gin.Context) {
 //    id, _ := c.Params.Get("id")

@@ -133,6 +133,29 @@ type Sector_details struct {
 	Turnover   float64 `json:"Turnover"`
 	Quantity   float64 `json:"Quantity"`
 }
+type Index_details struct {
+	Alpha               string `json:"alpha"`
+	Beta                string `json:"beta"`
+	DailyGain           string `json:"daily_gain"`
+	FullName            string `json:"full_name"`
+	IndexName           string `json:"index_name"`
+	Ltp                 string `json:"ltp"`
+	Macd                string `json:"macd"`
+	Macdsignal          string `json:"macdsignal"`
+	Pb                  string `json:"pb"`
+	Pe                  string `json:"pe"`
+	Peg                 string `json:"peg"`
+	Roa                 string `json:"roa"`
+	Roe                 string `json:"roe"`
+	Rsi                 string `json:"rsi"`
+	SharpeRatio         string `json:"sharpe_ratio"`
+	SmaTwo              string `json:"sma_200"`
+	TotalDividendYield  string `json:"total_dividend_yield"`
+	TotalNegativeGainer string `json:"total_negative_gainer"`
+	TotalPositiveGainer string `json:"total_positive_gainer"`
+	Turnover            string `json:"turnover_values"`
+	YearlyPercentChange string `json:"yearly_percent_change"`
+}
 
 func GetStocks(db *gorm.DB, Stock_details *[]Stock_details) (err error) {
 	err = db.Find(Stock_details).Error
@@ -145,7 +168,6 @@ func GetStocks(db *gorm.DB, Stock_details *[]Stock_details) (err error) {
 
 func GetBroker(db *gorm.DB, Broker_details *[]Broker_details) (err error) {
 	err = db.Find(Broker_details).Error
-	//Raw("SELECT * FROM `stock_details`(stockName, lastPrice, `turnOver`, `change`, `high`, `low`, `open`, `shareTraded`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);").First(ScripDetail).Error
 	if err != nil {
 		return err
 	}
@@ -154,7 +176,14 @@ func GetBroker(db *gorm.DB, Broker_details *[]Broker_details) (err error) {
 
 func GetSector(db *gorm.DB, Sector_details *[]Sector_details) (err error) {
 	err = db.Find(Sector_details).Error
-	//Raw("SELECT * FROM `stock_details`(stockName, lastPrice, `turnOver`, `change`, `high`, `low`, `open`, `shareTraded`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);").First(ScripDetail).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func GetIndex(db *gorm.DB, Index_details *[]Index_details) (err error) {
+	err = db.Find(Index_details).Error
 	if err != nil {
 		return err
 	}

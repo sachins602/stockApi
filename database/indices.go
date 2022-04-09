@@ -27,16 +27,16 @@ func SaveIndexDetailsToDb(indexInfo model.IndexInfo) {
 		fmt.Println("error validating db.Query arguments")
 	}
 
-	db.Exec("CREATE TABLE IF NOT EXISTS index_details (`IndexName` VARCHAR(100) PRIMARY KEY, `LastPrice` DOUBLE, `TurnOver` DOUBLE, `Change` DOUBLE, `High` DOUBLE, `Low` DOUBLE, `Open` DOUBLE, `ShareTraded` DOUBLE);")
+	db.Exec("CREATE TABLE IF NOT EXISTS index_details (`IndexName` VARCHAR(100) PRIMARY KEY, `FullName` VARCHAR(100), `Turnover` DOUBLE, `DailyGain` DOUBLE, `TotalPositiveGainer` DOUBLE, `TotalNegativeGainer` DOUBLE, `Pe` DOUBLE, `Pb` DOUBLE, `Peg` DOUBLE, `Roe` DOUBLE, `Alpha` DOUBLE, `Beta` DOUBLE,`SharpeRatio` DOUBLE, `Macd` DOUBLE,`Rsi` DOUBLE, `YearlyPercentChange` DOUBLE, `MacdSignal` DOUBLE, `SmaTwo` DOUBLE,`Ltp` DOUBLE, `TotalDividendYield` DOUBLE,`Roa` DOUBLE);")
 
-	for _, v := range indexInfo.Date.Turnover.Detail {
+	for _, v := range indexInfo.HomeTable {
 
-		ins, err := db.Prepare("INSERT INTO index_details(`IndexName`, `LastPrice`, `TurnOver`, `Change`, `High`, `Low`, `Open`, `ShareTraded`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);")
+		ins, err := db.Prepare("INSERT INTO index_details(`IndexName`, `FullName`, `Turnover`, `DailyGain`, `TotalPositiveGainer`, `TotalNegativeGainer`, `Pe`, `Pb`, `Peg`, `Roe`, `Alpha`, `Beta`, `SharpeRatio`, `Macd`, `Rsi`, `YearlyPercentChange`, `MacdSignal`, `SmaTwo`, `Ltp`, `TotalDividendYield`, `Roa`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);")
 
 		if err != nil {
 			fmt.Println("error validating db.Exec arguments")
 		}
-		ins.Exec(v.S, v.Lp, v.T, v.Pc, v.H, v.L, v.Op, v.Q)
+		ins.Exec(v.IndexName, v.FullName, v.TurnoverValues, v.DailyGain, v.TotalPositiveGainer, v.TotalNegativeGainer, v.Pe, v.Pb, v.Peg, v.Roe, v.Alpha, v.Beta, v.SharpeRatio, v.Macd, v.Rsi, v.YearlyPercentChange, v.Macdsignal, v.Sma200, v.Ltp, v.TotalDividendYield, v.Roa)
 	}
 
 }

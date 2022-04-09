@@ -11,6 +11,7 @@ import (
 
 func main() {
 	nd.NepseDetails()
+	nd.IndexDetails()
 	r := setupRouter()
 	_ = r.Run(":8080")
 
@@ -27,6 +28,7 @@ func setupRouter() *gin.Engine {
 	r.GET("/stocks", userRepo.GetStocks)
 	r.GET("/broker", userRepo.GetBroker)
 	r.GET("/sector", userRepo.GetSector)
+	r.GET("/index", userRepo.GetIndex)
 	// r.GET("/users/:id", userRepo.GetUser)
 	// r.PUT("/users/:id", userRepo.UpdateUser)
 	// r.DELETE("/users/:id", userRepo.DeleteUser)
