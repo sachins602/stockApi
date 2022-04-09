@@ -32,7 +32,7 @@ func New() *UserRepo {
 //    c.JSON(http.StatusOK, user)
 // }
 
-// get users
+// get Stocks
 func (repository *UserRepo) GetStocks(c *gin.Context) {
 	var stocks []models.Stock_details
 	err := models.GetStocks(repository.Db, &stocks)
@@ -41,6 +41,41 @@ func (repository *UserRepo) GetStocks(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, stocks)
+
+}
+
+//get Broker
+func (repository *UserRepo) GetBroker(c *gin.Context) {
+	var broker []models.Broker_details
+	err := models.GetBroker(repository.Db, &broker)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, broker)
+
+}
+
+func (repository *UserRepo) GetSector(c *gin.Context) {
+	var sector []models.Sector_details
+	err := models.GetSector(repository.Db, &sector)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, sector)
+
+}
+
+func (repository *UserRepo) GetIndex(c *gin.Context) {
+	var index []models.Index_details
+	err := models.GetIndex(repository.Db, &index)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, index)
+
 }
 
 // //get user by id
