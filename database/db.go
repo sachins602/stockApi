@@ -9,6 +9,7 @@ import (
 )
 
 func SaveDetailsToDb(nepseInfo model.NepseInfo) {
+
 	db, err := sql.Open("mysql", "root:@tcp(localhost:3306)/stock")
 
 	if err != nil {
@@ -26,15 +27,9 @@ func SaveDetailsToDb(nepseInfo model.NepseInfo) {
 	if err != nil {
 		fmt.Println("error validating db.Query arguments")
 	}
-
-	// var stockName []string
-	// var lastPrice []float64
-	// var turnOver []float64
-	// var change []float64
-	// var high []float64
-	// var low []float64
-	// var open []float64
-	// var shareTraded []float64
+	db.Exec("CREATE TABLE IF NOT EXISTS stock_details (`StockName` VARCHAR(100) PRIMARY KEY, `LastPrice` DOUBLE, `TurnOver` DOUBLE, `Change` DOUBLE, `High` DOUBLE, `Low` DOUBLE, `Open` DOUBLE, `ShareTraded` DOUBLE);")
+	db.Exec("CREATE TABLE IF NOT EXISTS sector_details (`SectorName` VARCHAR(100) PRIMARY KEY, `Turnover` DOUBLE, `Quantity` DOUBLE);")
+	db.Exec("CREATE TABLE IF NOT EXISTS broker_details (`BrokerNumber` Double PRIMARY KEY, `BrokerName` VARCHAR(100), `Purchase` DOUBLE, `Sales` DOUBLE, `Matching` DOUBLE, `Total` DOUBLE);")
 
 	for _, v := range nepseInfo.Turnover.Detail {
 		// stockName = append(stockName, v.S)
@@ -54,4 +49,21 @@ func SaveDetailsToDb(nepseInfo model.NepseInfo) {
 		ins.Exec(v.S, v.Lp, v.T, v.Pc, v.H, v.L, v.Op, v.Q)
 	}
 
+	for _, s := range nepseInfo.Sector.Detail {
+		sec, err := db.Prepare("INSERT INTO sector_details(`SectorName`, `Turnover`, `Quantity`) VALUES (?, ?, ?);")
+
+		if err != nil {
+			fmt.Println("error validating db.Exec arguments")
+		}
+		sec.Exec(s.S, s.T, s.Q)
+	}
+
+	for _, b := range nepseInfo.Broker.Detail {
+		bro, err := db.Prepare("INSERT INTO broker_details(`BrokerNumber`, `BrokerName`, `Purchase`, `Sales`, `Matching`, `Total`) VALUES (?, ?, ?, ?, ?, ?);")
+
+		if err != nil {
+			fmt.Println("error validating db.Exec arguments")
+		}
+		bro.Exec(b.B, b.N, b.P, b.S, b.M, b.T)
+	}
 }
