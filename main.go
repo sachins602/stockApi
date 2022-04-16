@@ -11,10 +11,11 @@ import (
 )
 
 func main() {
-	nd.NepseDetails()
-	nd.IndexDetails()
-	r := setupRouter()
-	_ = r.Run(":8080")
+	// nd.NepseDetails()
+	// nd.IndexDetails()
+	nd.ScrapeAllHistory()
+	// r := setupRouter()
+	// _ = r.Run(":8080")
 
 }
 func setupRouter() *gin.Engine {

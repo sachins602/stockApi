@@ -106,6 +106,16 @@ type IndexInfo struct {
 		YearlyPercentChange string      `json:"yearly_percent_change"`
 	} `json:"home_table"`
 }
+
+type ScripHistory struct {
+	T []int    `json:"t"`
+	C []string `json:"c"`
+	O []string `json:"o"`
+	H []string `json:"h"`
+	L []string `json:"l"`
+	V []string `json:"v"`
+	S string   `json:"s"`
+}
 type Stock_details struct {
 	// gorm.Model
 	StockName string `json:"StockName"`
