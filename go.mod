@@ -4,7 +4,10 @@ go 1.17
 
 require github.com/go-sql-driver/mysql v1.6.0
 
-require github.com/jinzhu/gorm v1.9.16 // indirect
+require (
+	github.com/gin-contrib/cors v1.3.1 // indirect
+	github.com/jinzhu/gorm v1.9.16 // indirect
+)
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
