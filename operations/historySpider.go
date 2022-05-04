@@ -68,55 +68,15 @@ func ScrapeAllHistory() {
 		// }
 
 		for j := 0; j < len(scripHistory.T); j++ {
-			for _, t := range scripHistory.T {
-				query := fmt.Sprintf("INSERT INTO %s (`Time`) VALUES (?)", s)
-				ins, err := db.Prepare(query)
-				if err != nil {
-					fmt.Println("error validating db.Exec arguments")
-				}
-				ins.Exec(t)
-			}
-			for _, c := range scripHistory.C {
-				query := fmt.Sprintf("INSERT INTO %s (`Close`) VALUES (?)", s)
-				ins, err := db.Prepare(query)
-				if err != nil {
-					fmt.Println("error validating db.Exec arguments")
-				}
-				ins.Exec(c)
-			}
-			for _, o := range scripHistory.O {
-				query := fmt.Sprintf("INSERT INTO %s (`Open`) VALUES (?)", s)
-				ins, err := db.Prepare(query)
-				if err != nil {
-					fmt.Println("error validating db.Exec arguments")
-				}
-				ins.Exec(o)
-			}
-			for _, h := range scripHistory.H {
-				query := fmt.Sprintf("INSERT INTO %s (`High`) VALUES (?)", s)
-				ins, err := db.Prepare(query)
-				if err != nil {
-					fmt.Println("error validating db.Exec arguments")
-				}
-				ins.Exec(h)
-			}
-			for _, l := range scripHistory.L {
-				query := fmt.Sprintf("INSERT INTO %s (`Low`) VALUES (?)", s)
-				ins, err := db.Prepare(query)
-				if err != nil {
-					fmt.Println("error validating db.Exec arguments")
-				}
-				ins.Exec(l)
-			}
-			for _, v := range scripHistory.V {
-				query := fmt.Sprintf("INSERT INTO %s (`Volume`) VALUES (?)", s)
-				ins, err := db.Prepare(query)
-				if err != nil {
-					fmt.Println("error validating db.Exec arguments")
-				}
-				ins.Exec(v)
-			}
+			o := scripHistory.O[j]
+			h := scripHistory.H[j]
+			c := scripHistory.C[j]
+			l := scripHistory.L[j]
+			v := scripHistory.V[j]
+			t := scripHistory.T[j]
 
+			query := fmt.Sprintf("INSERT INTO %s (`Time`, `Close`, `Open`, `High`, `Low`, `Volume`) VALUES (%d, %f, %f, %f, %f, %f)", s, t, c, o, h, l, v)
+			db.Exec(query)
 		}
 
 		// for _, t := range scripHistory.T {
