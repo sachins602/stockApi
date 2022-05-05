@@ -11,7 +11,7 @@ import (
 )
 
 func ScrapeAllHistory() {
-	scripSymbol := []string{"NEPSE", "ACLBSL", "ADBL", "AHPC", "AIL", "AKJCL", "AKPL", "ALBSL", "ALICL", "API", "BARUN", "BBC", "BFC", "BNHC", "BNT", "BOKL", "BPCL", "CBBL", "CBL", "CCBL", "CFCL", "CGH", "CHCL", "CHDC", "CHL", "CIT", "CLBSL", "CMF1", "CMF2", "CORBL", "CZBIL", "CZBILP", "DDBL", "DHPL", "EBL", "EDBL", "EIC", "EICPO", "ENL", "FMDBL", "FOWAD", "GBBL", "GBIME", "GBLBS", "GFCL", "GHL", "GIC", "GILB", "GIMES1", "GLBSL", "GLH", "GLICL", "GMFBS", "GMFIL", "GRDBL", "GUFL", "HDHPC", "HDL", "HGI", "HIDCL", "HPPL", "HURJA", "ICFC", "ICFCD83", "IGI", "ILBS", "JALPA", "JBBL", "JBLB", "JFL", "JFLPO", "JLI", "JOSHI", "JSLBB", "KBL", "KEF", "KKHC", "KLBSL", "KMCDB", "KPCL", "KRBL", "KSBBL", "LBBL", "LBL", "LEC", "LEMF", "LGIL", "LICN", "LLBS", "LUK", "MBJC", "MBL", "MDB", "MEGA", "MEGAPO", "MEN", "MERO", "MFIL", "MHNL", "MKJC", "MKLB", "MLBBL", "MLBL", "MLBLPO", "MLBS", "MLBSL", "MMF1", "MMFDB", "MNBBL", "MPFL", "MSLB", "NABBC", "NABIL", "NBF2", "NBF3", "NBL", "NBLD85", "NCCB", "NEF", "NESDO", "NFS", "NGPL", "NHDL", "NHPC", "NIBLPF", "NIBSF2", "NICA", "NICAD8283", "NICBF", "NICGF", "NICL", "NICLBSL", "NICSF", "NIFRA", "NIL", "NLBBL", "NLG", "NLIC", "NLICL", "NMB", "NMB50", "NMBHF1", "NMBMF", "NMFBS", "NRIC", "NRN", "NSLB", "NTC", "NUBL", "NYADI", "OHL", "PCBL", "PFL", "PIC", "PICL", "PLI", "PLIC", "PMHPL", "PPCL", "PRIN", "PROFL", "PRVU", "PSF", "RADHI", "RBCL", "RBCLPO", "RHPL", "RLFL", "RLI", "RMDC", "RMF1", "RSDC", "RULB", "RURU", "SABSL", "SADBL", "SAEF", "SAHAS", "SANIMA", "SAPDBL", "SBCF", "SBD87", "SBI", "SBL", "SCB", "SDLBSL", "SEF", "SFCL", "SFMF", "SGI", "SHEL", "SHINE", "SHIVM", "SHL", "SHPC", "SIC", "SICL", "SIFC", "SIGS2", "SIL", "SINDU", "SJCL", "SKBBL", "SLBBL", "SLBSL", "SLCF", "SLI", "SLICL", "SMATA", "SMB", "SMBPO", "SMFBS", "SMFDB", "SPC", "SPDL", "SRBL", "SSHL", "STC", "SWBBL", "TPC", "TRH", "UIC", "ULI", "UMHL", "UMRH", "UNHPL", "UNL", "UPCL", "UPPER", "USLB", "VLBS", "WNLB"}
+	//	scripSymbol := []string{"NEPSE", "ACLBSL", "ADBL", "AHPC", "AIL", "AKJCL", "AKPL", "ALBSL", "ALICL", "API", "BARUN", "BBC", "BFC", "BNHC", "BNT", "BOKL", "BPCL", "CBBL", "CBL", "CCBL", "CFCL", "CGH", "CHCL", "CHDC", "CHL", "CIT", "CLBSL", "CMF1", "CMF2", "CORBL", "CZBIL", "CZBILP", "DDBL", "DHPL", "EBL", "EDBL", "EIC", "EICPO", "ENL", "FMDBL", "FOWAD", "GBBL", "GBIME", "GBLBS", "GFCL", "GHL", "GIC", "GILB", "GIMES1", "GLBSL", "GLH", "GLICL", "GMFBS", "GMFIL", "GRDBL", "GUFL", "HDHPC", "HDL", "HGI", "HIDCL", "HPPL", "HURJA", "ICFC", "ICFCD83", "IGI", "ILBS", "JALPA", "JBBL", "JBLB", "JFL", "JFLPO", "JLI", "JOSHI", "JSLBB", "KBL", "KEF", "KKHC", "KLBSL", "KMCDB", "KPCL", "KRBL", "KSBBL", "LBBL", "LBL", "LEC", "LEMF", "LGIL", "LICN", "LLBS", "LUK", "MBJC", "MBL", "MDB", "MEGA", "MEGAPO", "MEN", "MERO", "MFIL", "MHNL", "MKJC", "MKLB", "MLBBL", "MLBL", "MLBLPO", "MLBS", "MLBSL", "MMF1", "MMFDB", "MNBBL", "MPFL", "MSLB", "NABBC", "NABIL", "NBF2", "NBF3", "NBL", "NBLD85", "NCCB", "NEF", "NESDO", "NFS", "NGPL", "NHDL", "NHPC", "NIBLPF", "NIBSF2", "NICA", "NICAD8283", "NICBF", "NICGF", "NICL", "NICLBSL", "NICSF", "NIFRA", "NIL", "NLBBL", "NLG", "NLIC", "NLICL", "NMB", "NMB50", "NMBHF1", "NMBMF", "NMFBS", "NRIC", "NRN", "NSLB", "NTC", "NUBL", "NYADI", "OHL", "PCBL", "PFL", "PIC", "PICL", "PLI", "PLIC", "PMHPL", "PPCL", "PRIN", "PROFL", "PRVU", "PSF", "RADHI", "RBCL", "RBCLPO", "RHPL", "RLFL", "RLI", "RMDC", "RMF1", "RSDC", "RULB", "RURU", "SABSL", "SADBL", "SAEF", "SAHAS", "SANIMA", "SAPDBL", "SBCF", "SBD87", "SBI", "SBL", "SCB", "SDLBSL", "SEF", "SFCL", "SFMF", "SGI", "SHEL", "SHINE", "SHIVM", "SHL", "SHPC", "SIC", "SICL", "SIFC", "SIGS2", "SIL", "SINDU", "SJCL", "SKBBL", "SLBBL", "SLBSL", "SLCF", "SLI", "SLICL", "SMATA", "SMB", "SMBPO", "SMFBS", "SMFDB", "SPC", "SPDL", "SRBL", "SSHL", "STC", "SWBBL", "TPC", "TRH", "UIC", "ULI", "UMHL", "UMRH", "UNHPL", "UNL", "UPCL", "UPPER", "USLB", "VLBS", "WNLB"}
 
 	db, err := sql.Open("mysql", "root:@tcp(localhost:3306)/stock")
 
@@ -31,86 +31,92 @@ func ScrapeAllHistory() {
 		fmt.Println("error validating db.Query arguments")
 	}
 
-	for i := 0; i < len(scripSymbol); i++ {
-		query := fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (`Time` DOUBLE, `Close` DOUBLE, `Open` DOUBLE, `High` DOUBLE, `Low` DOUBLE, `Volume` DOUBLE)", scripSymbol[i])
+	tbQuery := "CREATE TABLE IF NOT EXISTS historic (`Scrip` VARCHAR(10),`Time` DOUBLE, `Close` VARCHAR(20), `Open` VARCHAR(20), `High` VARCHAR(20), `Low` VARCHAR(20), `Volume` VARCHAR(20))"
+	db.Exec(tbQuery)
+
+	// for i := 0; i < len(scripSymbol); i++ {
+	// 	query := fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (`Time` DOUBLE, `Close` DOUBLE, `Open` DOUBLE, `High` DOUBLE, `Low` DOUBLE, `Volume` DOUBLE)", scripSymbol[i])
+	// 	db.Exec(query)
+	// }
+
+	//	for _, s := range scripSymbol {
+	url := fmt.Sprintf("https://nepsealpha.com/trading/1/history?symbol=NABIL&resolution=1D&from=1611705600&to=1650240000&pass=ok&force=161259&currencyCode=NRS")
+	//url := fmt.Sprintf("https://nepsealpha.com/trading/1/history?symbol=%s&resolution=1D&from=1611705600&to=1650240000&pass=ok&force=161259&currencyCode=NRS", s)
+	resp, err := http.Get(url)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var scripHistory models.ScripHistory
+
+	err = json.Unmarshal([]byte(body), &scripHistory)
+	// fmt.Println(scripHistory)
+	if err != nil {
+		fmt.Println("error", err)
+	}
+
+	// for _, v := range scripHistory.T {
+	// 	query := fmt.Sprintf("INSERT INTO %s (`Time`) VALUES (%d, %s, %s, %s)", s, t)
+
+	// 	ins, err := db.Prepare("INSERT INTO %s(`IndexName`, `FullName`, `Turnover`, `DailyGain`, `TotalPositiveGainer`, `TotalNegativeGainer`, `Pe`, `Pb`, `Peg`, `Roe`, `Alpha`, `Beta`, `SharpeRatio`, `Macd`, `Rsi`, `YearlyPercentChange`, `MacdSignal`, `SmaTwo`, `Ltp`, `TotalDividendYield`, `Roa`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);")
+
+	// 	if err != nil {
+	// 		fmt.Println("error validating db.Exec arguments")
+	// 	}
+	// 	ins.Exec(v)
+	// }
+
+	scrip := `"NABIL"`
+	for j := 0; j < len(scripHistory.T); j++ {
+		o := scripHistory.O[j]
+		h := scripHistory.H[j]
+		c := scripHistory.C[j]
+		l := scripHistory.L[j]
+		v := scripHistory.V[j]
+		t := scripHistory.T[j]
+
+		query := fmt.Sprintf("INSERT INTO historic (`Scrip`, `Time`, `Close`, `Open`, `High`, `Low`, `Volume`) VALUES (%s, %d, %s, %s, %s, %s, %s)", scrip, t, c, o, h, l, v)
+		//query := fmt.Sprintf("INSERT INTO %s (`Time`, `Close`, `Open`, `High`, `Low`, `Volume`) VALUES (%d, %f, %f, %f, %f, %f)", s, t, c, o, h, l, v)
 		db.Exec(query)
 	}
 
-	for _, s := range scripSymbol {
-		url := fmt.Sprintf("https://nepsealpha.com/trading/1/history?symbol=%s&resolution=1D&from=1611705600&to=1650240000&pass=ok&force=161259&currencyCode=NRS", s)
-		resp, err := http.Get(url)
-		if err != nil {
-			log.Fatal(err)
-		}
+	// for _, t := range scripHistory.T {
+	// 	query := fmt.Sprintf("INSERT INTO %s (`Time`) VALUES (%d, %s, %s, %s)", s, t)
+	// 	db.Exec(query)
+	// }
 
-		body, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			log.Fatal(err)
-		}
+	// for _, c := range scripHistory.C {
+	// 	query := fmt.Sprintf("INSERT INTO %s (`Close`) VALUES (%s)", s, c)
+	// 	db.Exec(query)
+	// }
 
-		var scripHistory models.ScripHistory
+	// for _, o := range scripHistory.O {
+	// 	query := fmt.Sprintf("INSERT INTO %s (`Open`) VALUES (%s)", s, o)
+	// 	db.Exec(query)
+	// }
 
-		err = json.Unmarshal([]byte(body), &scripHistory)
+	// for _, h := range scripHistory.H {
+	// 	query := fmt.Sprintf("INSERT INTO %s (`High`) VALUES (%s)", s, h)
+	// 	db.Exec(query)
+	// }
 
-		if err == nil {
-			fmt.Println("error")
-		}
+	// for _, l := range scripHistory.L {
+	// 	query := fmt.Sprintf("INSERT INTO %s (`Low`) VALUES (%s)", s, l)
+	// 	db.Exec(query)
+	// }
 
-		// for _, v := range scripHistory.T {
-		// 	query := fmt.Sprintf("INSERT INTO %s (`Time`) VALUES (%d, %s, %s, %s)", s, t)
+	// for _, v := range scripHistory.V {
+	// 	query := fmt.Sprintf("INSERT INTO %s (`Volume`) VALUES (%s)", s, v)
+	// 	db.Exec(query)
+	// }
 
-		// 	ins, err := db.Prepare("INSERT INTO %s(`IndexName`, `FullName`, `Turnover`, `DailyGain`, `TotalPositiveGainer`, `TotalNegativeGainer`, `Pe`, `Pb`, `Peg`, `Roe`, `Alpha`, `Beta`, `SharpeRatio`, `Macd`, `Rsi`, `YearlyPercentChange`, `MacdSignal`, `SmaTwo`, `Ltp`, `TotalDividendYield`, `Roa`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);")
+	resp.Body.Close()
 
-		// 	if err != nil {
-		// 		fmt.Println("error validating db.Exec arguments")
-		// 	}
-		// 	ins.Exec(v)
-		// }
-
-		for j := 0; j < len(scripHistory.T); j++ {
-			o := scripHistory.O[j]
-			h := scripHistory.H[j]
-			c := scripHistory.C[j]
-			l := scripHistory.L[j]
-			v := scripHistory.V[j]
-			t := scripHistory.T[j]
-
-			query := fmt.Sprintf("INSERT INTO %s (`Time`, `Close`, `Open`, `High`, `Low`, `Volume`) VALUES (%d, %f, %f, %f, %f, %f)", s, t, c, o, h, l, v)
-			db.Exec(query)
-		}
-
-		// for _, t := range scripHistory.T {
-		// 	query := fmt.Sprintf("INSERT INTO %s (`Time`) VALUES (%d, %s, %s, %s)", s, t)
-		// 	db.Exec(query)
-		// }
-
-		// for _, c := range scripHistory.C {
-		// 	query := fmt.Sprintf("INSERT INTO %s (`Close`) VALUES (%s)", s, c)
-		// 	db.Exec(query)
-		// }
-
-		// for _, o := range scripHistory.O {
-		// 	query := fmt.Sprintf("INSERT INTO %s (`Open`) VALUES (%s)", s, o)
-		// 	db.Exec(query)
-		// }
-
-		// for _, h := range scripHistory.H {
-		// 	query := fmt.Sprintf("INSERT INTO %s (`High`) VALUES (%s)", s, h)
-		// 	db.Exec(query)
-		// }
-
-		// for _, l := range scripHistory.L {
-		// 	query := fmt.Sprintf("INSERT INTO %s (`Low`) VALUES (%s)", s, l)
-		// 	db.Exec(query)
-		// }
-
-		// for _, v := range scripHistory.V {
-		// 	query := fmt.Sprintf("INSERT INTO %s (`Volume`) VALUES (%s)", s, v)
-		// 	db.Exec(query)
-		// }
-
-		resp.Body.Close()
-
-	}
+	//}
 
 }
