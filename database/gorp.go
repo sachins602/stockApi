@@ -29,10 +29,11 @@ func connectDB() *gorm.DB {
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		fmt.Println("Error connecting to database : error= %v", err)
+		fmt.Println("Error connecting to database : error = ", err)
 		return nil
 	}
 	db.AutoMigrate(&models.UserInfo{})
+	db.AutoMigrate(&models.Portfolio{})
 
 	return db
 }

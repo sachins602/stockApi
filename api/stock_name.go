@@ -90,6 +90,28 @@ func (repository *UserRepo) GetIndex(c *gin.Context) {
 
 }
 
+func (repository *UserRepo) GetPortfolio(c *gin.Context) {
+	var portfolio []models.Portfolio
+	err := models.GetPortfolio(repository.Db, &portfolio)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, portfolio)
+
+}
+
+func (repository *UserRepo) PostPortfolio(c *gin.Context) {
+	var portfolio models.Portfolio
+	c.BindJSON(&portfolio)
+	err := models.PostPortfolio(repository.Db, &portfolio)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, portfolio)
+}
+
 // //get user by id
 // func (repository *UserRepo) GetUser(c *gin.Context) {
 //    id, _ := c.Params.Get("id")

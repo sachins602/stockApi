@@ -11,6 +11,14 @@ type UserInfo struct {
 	PhoneNumber int64  `json:"phone_number"`
 }
 
+type Portfolio struct {
+	Email    string  `json:"email" gorm:"foreign_key"`
+	Scrip    string  `json:"scrip" gorm:"foreign_key"`
+	Type     string  `json:"type"`
+	Quantity int64   `json:"quantity"`
+	BuyPrice float64 `json:"buy_price"`
+}
+
 type NepseInfo struct {
 	Mt      string `json:"mt"`
 	Overall struct {
@@ -207,6 +215,22 @@ func GetLoginInfo(db *gorm.DB, LoginInfo *[]UserInfo) (err error) {
 
 func PostLoginInfo(db *gorm.DB, LoginInfo *UserInfo) (err error) {
 	err = db.Create(LoginInfo).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func GetPortfolio(db *gorm.DB, Portfolio *[]Portfolio) (err error) {
+	err = db.Find(Portfolio).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func PostPortfolio(db *gorm.DB, Portfolio *Portfolio) (err error) {
+	err = db.Create(Portfolio).Error
 	if err != nil {
 		return err
 	}
