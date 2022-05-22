@@ -30,8 +30,8 @@ func IndexDetails() {
 
 	err = json.Unmarshal([]byte(body), &indexInfo)
 
-	if err == nil {
-		fmt.Println("error")
+	if err != nil {
+		fmt.Println("error", err)
 	}
 	database.SaveIndexDetailsToDb(indexInfo)
 }

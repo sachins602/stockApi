@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"goapi/models"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -28,9 +29,10 @@ func connectDB() *gorm.DB {
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		fmt.Println("Error connecting to database : error=%v", err)
+		fmt.Println("Error connecting to database : error= %v", err)
 		return nil
 	}
+	db.AutoMigrate(&models.UserInfo{})
 
 	return db
 }

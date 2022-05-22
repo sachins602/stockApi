@@ -20,17 +20,29 @@ func New() *UserRepo {
 	return &UserRepo{Db: db}
 }
 
-// //create user
-// func (repository *UserRepo) CreateUser(c *gin.Context) {
-//    var user models.User
-//    c.BindJSON(&user)
-//    err := models.CreateUser(repository.Db, &user)
-//    if err != nil {
-//       c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
-//       return
-//    }
-//    c.JSON(http.StatusOK, user)
-// }
+// get Users
+func (repository *UserRepo) GetLoginInfo(c *gin.Context) {
+	var user []models.UserInfo
+	err := models.GetLoginInfo(repository.Db, &user)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, user)
+
+}
+
+//post Users
+func (repository *UserRepo) PostLoginInfo(c *gin.Context) {
+	var user models.UserInfo
+	c.BindJSON(&user)
+	err := models.PostLoginInfo(repository.Db, &user)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, user)
+}
 
 // get Stocks
 func (repository *UserRepo) GetStocks(c *gin.Context) {

@@ -4,6 +4,13 @@ import (
 	"gorm.io/gorm"
 )
 
+type UserInfo struct {
+	FullName    string `json:"full_name"`
+	Email       string `json:"email"  gorm:"primary_key"`
+	Password    string `json:"password"`
+	PhoneNumber int64  `json:"phone_number"`
+}
+
 type NepseInfo struct {
 	Mt      string `json:"mt"`
 	Overall struct {
@@ -184,6 +191,22 @@ func GetSector(db *gorm.DB, Sector_details *[]Sector_details) (err error) {
 
 func GetIndex(db *gorm.DB, Index_details *[]Index_details) (err error) {
 	err = db.Find(Index_details).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func GetLoginInfo(db *gorm.DB, LoginInfo *[]UserInfo) (err error) {
+	err = db.Find(LoginInfo).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func PostLoginInfo(db *gorm.DB, LoginInfo *UserInfo) (err error) {
+	err = db.Create(LoginInfo).Error
 	if err != nil {
 		return err
 	}

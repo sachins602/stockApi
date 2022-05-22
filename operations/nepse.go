@@ -31,7 +31,7 @@ func NepseDetails() {
 	err = json.Unmarshal([]byte(body), &nepseInfo)
 
 	if err == nil {
-		fmt.Println("error")
+		fmt.Println("error", err)
 	}
 	database.SaveDetailsToDb(nepseInfo)
 }
