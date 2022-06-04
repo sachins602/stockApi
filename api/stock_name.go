@@ -112,6 +112,19 @@ func (repository *UserRepo) PostPortfolio(c *gin.Context) {
 	c.JSON(http.StatusOK, portfolio)
 }
 
+//get NEPSE history data
+func (repository *UserRepo) GetNepseHistory(c *gin.Context) {
+	var nepse []models.Historic
+	// c.BindJSON(&nepse)
+	err := models.GetNepseHistory(repository.Db, &nepse)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error converting to json": err})
+		return
+	}
+	c.JSON(http.StatusOK, nepse)
+
+}
+
 // //get user by id
 // func (repository *UserRepo) GetUser(c *gin.Context) {
 //    id, _ := c.Params.Get("id")

@@ -36,6 +36,7 @@ func setupRouter() *gin.Engine {
 	r.POST("/signup", userRepo.PostLoginInfo)
 	r.GET("/portfolio", userRepo.GetPortfolio)
 	r.POST("/addportfolio", userRepo.PostPortfolio)
+	r.GET("/nepseHistory", userRepo.GetNepseHistory)
 	// r.GET("/users/:id", userRepo.GetUser)
 	// r.PUT("/users/:id", userRepo.UpdateUser)
 	// r.DELETE("/users/:id", userRepo.DeleteUser)

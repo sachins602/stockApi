@@ -73,6 +73,15 @@ type NepseInfo struct {
 		} `json:"detail"`
 	} `json:"stock"`
 }
+type Historic struct {
+	Scrip  string  `json:"Scrip"`
+	Time   float64 `json:"Time"`
+	Close  float64 `json:"Close"`
+	Open   float64 `json:"Open"`
+	High   float64 `json:"High"`
+	Low    float64 `json:"Low"`
+	Volume float64 `json:"Volume"`
+}
 
 type IndexInfo struct {
 	Date      string `json:"date"`
@@ -175,6 +184,14 @@ type Index_details struct {
 func GetStocks(db *gorm.DB, Stock_details *[]Stock_details) (err error) {
 	err = db.Find(Stock_details).Error
 	//Raw("SELECT * FROM `stock_details`(stockName, lastPrice, `turnOver`, `change`, `high`, `low`, `open`, `shareTraded`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);").First(ScripDetail).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func GetNepseHistory(db *gorm.DB, Historic *[]Historic) (err error) {
+	err = db.Find(Historic, "scrip = ?", "ADBL").Error
 	if err != nil {
 		return err
 	}
