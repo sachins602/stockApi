@@ -1,10 +1,9 @@
-package operations
+package spiders
 
 import (
 	"encoding/json"
 	"fmt"
-	database "goapi/database"
-	models "goapi/models"
+	database "goapi/spiderdb"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -26,12 +25,12 @@ func IndexDetails() {
 		log.Fatal(err)
 	}
 
-	var indexInfo models.IndexInfo
+	var indices database.IndexInfo
 
-	err = json.Unmarshal([]byte(body), &indexInfo)
+	err = json.Unmarshal([]byte(body), &indices)
 
 	if err != nil {
 		fmt.Println("error", err)
 	}
-	database.SaveIndexDetailsToDb(indexInfo)
+	database.SaveIndexDetailsToDb(indices)
 }

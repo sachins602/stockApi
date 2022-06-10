@@ -1,10 +1,9 @@
-package operations
+package spiders
 
 import (
 	"encoding/json"
 	"fmt"
-	database "goapi/database"
-	models "goapi/models"
+	database "goapi/spiderdb"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -26,7 +25,7 @@ func NepseDetails() {
 		log.Fatal(err)
 	}
 
-	var nepseInfo models.NepseInfo
+	var nepseInfo database.NepseInfo
 
 	err = json.Unmarshal([]byte(body), &nepseInfo)
 
@@ -36,7 +35,7 @@ func NepseDetails() {
 	database.SaveDetailsToDb(nepseInfo)
 }
 
-// CREATE TABLE stock_details(
+// CREATE TABLE stocks(
 // `StockName` VARCHAR(100),
 // `LastPrice` DOUBLE,
 // `TurnOver` DOUBLE,
@@ -47,5 +46,5 @@ func NepseDetails() {
 // `ShareTraded` DOUBLE
 // );
 
-// INSERT INTO stock_details(`StockName`, `LastPrice`, `TurnOver`, `Change`, `High`, `Low`, `Open`, `ShareTraded`)
+// INSERT INTO stocks(`StockName`, `LastPrice`, `TurnOver`, `Change`, `High`, `Low`, `Open`, `ShareTraded`)
 // VALUES ('SHIVM', 1047, 79199051.5, -0.19, 1083, 1025, 1065, 75614);
