@@ -60,14 +60,14 @@ func CreatePortfolio(c *gin.Context) {
 }
 
 func GetPortfolioByID(c *gin.Context) {
-	var portfolio models.Portfolio
+	var portfolio []models.Portfolio
 
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&portfolio).Error; err != nil {
+	if err := models.DB.Where("username = ?", c.Param("username")).Find(&portfolio).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": portfolio})
+	c.JSON(http.StatusOK, portfolio)
 }
 
 //schema validation

@@ -60,7 +60,7 @@ func setupRouter() *gin.Engine {
 	//porfolio CRUD
 	admin.GET("/portfolios", controllers.GetPortfolios)
 	admin.POST("/portfolios", controllers.CreatePortfolio)
-	admin.GET("/portfolios/:id", controllers.GetPortfolioByID)
+	admin.GET("/portfolios/:username", controllers.GetPortfolioByID)
 	admin.PATCH("/portfolios/:id", controllers.UpdatePortfolio)
 	admin.DELETE("/portfolios/:id", controllers.DeletePortfolio)
 
