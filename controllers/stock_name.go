@@ -51,10 +51,15 @@ func GetIndex(c *gin.Context) {
 func GetNepseHistory(c *gin.Context) {
 	var historics []models.Historic
 
-	models.DB.Find(&historics)
+	//models.DB.Find(&historics)
 
-	var total_data int64
-	models.DB.Table("historics").Count(&total_data)
+	if err := models.DB.Where("scrip = ?", c.Param("scrip")).Table(c.Param("sector")).Find(&historics).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		return
+	}
 
-	c.JSON(http.StatusOK, gin.H{"total": total_data, "data": historics})
+	// var total_data int64
+	// models.DB.Where("scrip = ?", c.Param("scrip")).Table(c.Param("sector")).Count(&total_data)
+
+	c.JSON(http.StatusOK, historics)
 }
