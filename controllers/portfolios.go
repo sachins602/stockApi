@@ -82,7 +82,7 @@ type UpdatePortfolioInput struct {
 func UpdatePortfolio(c *gin.Context) {
 	// Get model if exist
 	var portfolio models.Portfolio
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&portfolio).Error; err != nil {
+	if err := models.DB.Where("username = ?", c.Param("username")).Find(&portfolio).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
@@ -103,12 +103,11 @@ func UpdatePortfolio(c *gin.Context) {
 func DeletePortfolio(c *gin.Context) {
 	// Get model if exist
 	var portfolio models.Portfolio
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&portfolio).Error; err != nil {
+	//db.Where("name = ? AND age >= ?", "jinzhu", "22").Find(&users)
+	if err := models.DB.Where("username = ? AND scrip = ?", c.Param("username"), c.Param("scrip")).Delete(&portfolio).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
-
-	models.DB.Delete(&portfolio)
 
 	c.JSON(http.StatusOK, gin.H{"data": true})
 

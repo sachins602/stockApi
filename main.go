@@ -9,7 +9,7 @@ import (
 	"goapi/middlewares"
 	"goapi/models"
 
-	sp "goapi/spiders"
+	// sp "goapi/spiders"
 	"goapi/utils"
 
 	"github.com/gin-contrib/cors"
@@ -27,8 +27,8 @@ func main() {
 		v.RegisterValidation("bookabledate", utils.BookableDate)
 	}
 
-	sp.NepseDetails()
-	sp.IndexDetails()
+	// sp.NepseDetails()
+	// sp.IndexDetails()
 	r := setupRouter()
 	_ = r.Run(":8080")
 
@@ -61,8 +61,8 @@ func setupRouter() *gin.Engine {
 	admin.GET("/portfolios", controllers.GetPortfolios)
 	admin.POST("/portfolios", controllers.CreatePortfolio)
 	admin.GET("/portfolios/:username", controllers.GetPortfolioByID)
-	admin.PATCH("/portfolios/:id", controllers.UpdatePortfolio)
-	admin.DELETE("/portfolios/:id", controllers.DeletePortfolio)
+	admin.PATCH("/portfolios/:username", controllers.UpdatePortfolio)
+	admin.GET("/portfolios/:username/:scrip", controllers.DeletePortfolio)
 
 	return r
 }
