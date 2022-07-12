@@ -9,7 +9,7 @@ import (
 	"goapi/middlewares"
 	"goapi/models"
 
-	// sp "goapi/spiders"
+	//sp "goapi/spiders"
 	"goapi/utils"
 
 	"github.com/gin-contrib/cors"
@@ -29,6 +29,7 @@ func main() {
 
 	// sp.NepseDetails()
 	// sp.IndexDetails()
+	//sp.NepseIndexHistory()
 	r := setupRouter()
 	_ = r.Run(":8080")
 
@@ -56,6 +57,7 @@ func setupRouter() *gin.Engine {
 	public.GET("/sector", controllers.GetSector)
 	public.GET("/index", controllers.GetIndex)
 	public.GET("/nepse", controllers.GetNepse)
+	public.GET("/nepseHistoric", controllers.GetNepseIndexHistory)
 	public.GET("/nepseHistory/:sector/:scrip", controllers.GetNepseHistory)
 
 	//porfolio CRUD

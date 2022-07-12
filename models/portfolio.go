@@ -6,9 +6,8 @@ import (
 
 type Portfolio struct {
 	gorm.Model
-	Username string  `json:"username" gorm:"foreign_key"`
-	Scrip    string  `json:"scrip" gorm:"foreign_key"`
-	Type     string  `json:"type"`
+	Username string  `json:"username" gorm:"primaryKey"`
+	Scrip    string  `json:"scrip" gorm:"primaryKey"`
 	Total    float64 `json:"total"`
 	Price    float64 `json:"price"`
 }

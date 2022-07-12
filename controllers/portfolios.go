@@ -37,7 +37,6 @@ func GetPortfolios(c *gin.Context) {
 
 type CreatePortfolioInput struct {
 	Scrip string  `json:"scrip" binding:"required"`
-	Type  string  `json:"type" binding:"required"`
 	Total float64 `json:"total" binding:"required"`
 	Price float64 `json:"price" binding:"required"`
 }
@@ -52,7 +51,7 @@ func CreatePortfolio(c *gin.Context) {
 		return
 	}
 
-	portfolio := models.Portfolio{Username: currentUser, Scrip: input.Scrip, Type: input.Type, Total: input.Total, Price: input.Price}
+	portfolio := models.Portfolio{Username: currentUser, Scrip: input.Scrip, Total: input.Total, Price: input.Price}
 	models.DB.Create(&portfolio)
 
 	c.JSON(http.StatusOK, gin.H{"data": portfolio})
@@ -73,7 +72,6 @@ func GetPortfolioByID(c *gin.Context) {
 //schema validation
 type UpdatePortfolioInput struct {
 	Scrip string  `json:"scrip"`
-	Type  string  `json:"type"`
 	Total float64 `json:"total"`
 	Price float64 `json:"price"`
 }
