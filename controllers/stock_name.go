@@ -47,13 +47,22 @@ func GetIndex(c *gin.Context) {
 	c.JSON(http.StatusOK, indices)
 }
 
+//get NEPSE data
+func GetNepse(c *gin.Context) {
+	var nepse models.Index
+
+	models.DB.First(&nepse, "IndexName = ?", "NEPSE")
+
+	c.JSON(http.StatusOK, nepse)
+}
+
 //get NEPSE history data
 func GetNepseHistory(c *gin.Context) {
 	var historics []models.Historic
 
 	//models.DB.Find(&historics)
 
-	if err := models.DB.Where("scrip = ?", c.Param("scrip")).Table(c.Param("sector")).Find(&historics).Error; err != nil {
+	if err := models.DB.Where("scrip = ? AND time > 1622732399", c.Param("scrip")).Table(c.Param("sector")).Find(&historics).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
