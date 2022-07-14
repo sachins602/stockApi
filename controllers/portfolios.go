@@ -53,8 +53,8 @@ func CreatePortfolio(c *gin.Context) {
 	}
 
 	portfolio := models.Portfolio{Username: currentUser, Scrip: input.Scrip, Total: input.Total, Price: input.Price}
-	models.DB.Create(&portfolio)
 
+	models.DB.Where("username = ? AND scrip = ?", currentUser, input.Scrip).FirstOrCreate(&portfolio)
 	c.JSON(http.StatusOK, gin.H{"data": portfolio})
 
 }
