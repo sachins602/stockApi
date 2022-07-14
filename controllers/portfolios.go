@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 
 	md "goapi/middlewares"
@@ -59,9 +60,11 @@ func CreatePortfolio(c *gin.Context) {
 }
 
 func GetPortfolioByID(c *gin.Context) {
-	var portfolio []models.Portfolio
+	var portfolio []models.PortfolioResponseForTable
 
-	if err := models.DB.Where("username = ?", c.Param("username")).Find(&portfolio).Error; err != nil {
+	query := fmt.Sprintf("SELECT portfolios.*, stocks.LastPrice, stocks.Open FROM portfolios LEFT JOIN stocks ON portfolios.scrip = stocks.StockName WHERE portfolios.username = '%s' ORDER BY portfolios.created_at;", c.Param("username"))
+
+	if err := models.DB.Raw(query).Scan(&portfolio).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
