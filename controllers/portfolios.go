@@ -105,7 +105,7 @@ func DeletePortfolio(c *gin.Context) {
 	// Get model if exist
 	var portfolio models.Portfolio
 	//db.Where("name = ? AND age >= ?", "jinzhu", "22").Find(&users)
-	if err := models.DB.Where("username = ? AND scrip = ?", c.Param("username"), c.Param("scrip")).Delete(&portfolio).Error; err != nil {
+	if err := models.DB.Unscoped().Where("username = ? AND scrip = ?", c.Param("username"), c.Param("scrip")).Delete(&portfolio).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
