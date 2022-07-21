@@ -47,6 +47,33 @@ func GetIndex(c *gin.Context) {
 	c.JSON(http.StatusOK, indices)
 }
 
+//get gainer
+func GetGainer(c *gin.Context) {
+	var gainers []models.Gainer
+
+	models.DB.Table("top_gainers").Find(&gainers)
+
+	c.JSON(http.StatusOK, gainers)
+}
+
+//get loser
+func GetLoser(c *gin.Context) {
+	var losers []models.Gainer
+
+	models.DB.Table("top_losers").Find(&losers)
+
+	c.JSON(http.StatusOK, losers)
+}
+
+//get subIndex
+func GetSubIndex(c *gin.Context) {
+	var subIndices []models.SubIndex
+
+	models.DB.Table("sub_indices").Find(&subIndices)
+
+	c.JSON(http.StatusOK, subIndices)
+}
+
 //get NEPSE data
 func GetNepse(c *gin.Context) {
 	var nepse models.Index

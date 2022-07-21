@@ -55,6 +55,11 @@ func setupRouter() *gin.Engine {
 	public.GET("/broker", controllers.GetBroker)
 	public.GET("/sector", controllers.GetSector)
 	public.GET("/index", controllers.GetIndex)
+	public.GET("/gainer", controllers.GetGainer)
+	public.GET("/loser", controllers.GetLoser)
+	public.GET("/subindex", controllers.GetSubIndex)
+
+	//historic data
 	public.GET("/nepse", controllers.GetNepse)
 	public.GET("/nepseHistoric", controllers.GetNepseIndexHistory)
 	public.GET("/nepseHistory/:sector/:scrip", controllers.GetNepseHistory)

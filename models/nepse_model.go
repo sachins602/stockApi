@@ -58,3 +58,20 @@ type Index struct {
 	Turnover            string `json:"Turnover" gorm:"column:Turnover"`
 	YearlyPercentChange string `json:"YearlyPercentChange" gorm:"column:YearlyPercentChange"`
 }
+
+type Gainer struct {
+	Id            int    `json:"Id" gorm:"column:id"`
+	Symbol        string `json:"Symbol" gorm:"column:symbol"`
+	CompanyName   string `json:"CompanyName" gorm:"column:company"`
+	Ltp           string `json:"Ltp" gorm:"column:ltp"`
+	Change        string `json:"Change" gorm:"column:point_change"`
+	PercentChange string `json:"PercentChange" gorm:"column:percent_change"`
+}
+
+type SubIndex struct {
+	Sector        string `json:"Sector" gorm:"column:sector"`
+	Turnover      string `json:"Turnover" gorm:"column:turnover"`
+	Close         string `json:"Close" gorm:"column:close"`
+	Point         string `json:"Point" gorm:"column:point"`
+	PercentChange string `json:"PercentChange" gorm:"column:percent_change"`
+}
