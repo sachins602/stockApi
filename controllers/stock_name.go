@@ -56,6 +56,15 @@ func GetGainer(c *gin.Context) {
 	c.JSON(http.StatusOK, gainers)
 }
 
+//get small gainer
+func GetSmallGainer(c *gin.Context) {
+	var smallGainers []models.Gainer
+
+	models.DB.Table("top_gainers").Find(&smallGainers, "id < ?", 5)
+
+	c.JSON(http.StatusOK, smallGainers)
+}
+
 //get loser
 func GetLoser(c *gin.Context) {
 	var losers []models.Gainer
@@ -63,6 +72,15 @@ func GetLoser(c *gin.Context) {
 	models.DB.Table("top_losers").Find(&losers)
 
 	c.JSON(http.StatusOK, losers)
+}
+
+//get small loser
+func GetSmallLoser(c *gin.Context) {
+	var smallLosers []models.Gainer
+
+	models.DB.Table("top_losers").Find(&smallLosers, "id < ?", 5)
+
+	c.JSON(http.StatusOK, smallLosers)
 }
 
 //get subIndex

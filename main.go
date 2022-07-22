@@ -56,7 +56,9 @@ func setupRouter() *gin.Engine {
 	public.GET("/sector", controllers.GetSector)
 	public.GET("/index", controllers.GetIndex)
 	public.GET("/gainer", controllers.GetGainer)
+	public.GET("/smallgainer", controllers.GetSmallGainer)
 	public.GET("/loser", controllers.GetLoser)
+	public.GET("/smallloser", controllers.GetSmallLoser)
 	public.GET("/subindex", controllers.GetSubIndex)
 
 	//historic data
