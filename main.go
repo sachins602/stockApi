@@ -64,7 +64,7 @@ func setupRouter() *gin.Engine {
 	//historic data
 	public.GET("/nepse", controllers.GetNepse)
 	public.GET("/nepseHistoric", controllers.GetNepseIndexHistory)
-	public.GET("/nepseHistory/:sector/:scrip", controllers.GetNepseHistory)
+	public.GET("/nepseHistory/:scrip", controllers.GetNepseHistory)
 
 	//porfolio CRUD
 	admin.GET("/portfolios", controllers.GetPortfolios)

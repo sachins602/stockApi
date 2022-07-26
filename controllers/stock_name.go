@@ -115,9 +115,38 @@ func GetNepseIndexHistory(c *gin.Context) {
 func GetNepseHistory(c *gin.Context) {
 	var historics []models.Historic
 
+	var scripIn string = c.Param("scrip")
+
+	sector := map[string][]string{
+		"corporate_debentures":         {"NICAD8283", "NBLD85"},
+		"microfinance":                 {"ACLBSL", "ALBSL", "CBBL", "CLBSL", "DDBL", "FMDBL", "FOWAD", "GMFBS", "GILB", "GBLBS", "GLBSL", "ILBS", "JALPA", "JSLBB", "JBLB", "KMCDB", "KLBSL", "LLBS", "MLBSL", "MSLB", "MKLB", "MLBS", "MERO", "MMFDB", "MLBBL", "NSLB", "NLBBL", "NESDO", "NICLBSL", "NUBL", "RULB", "RMDC", "RSDC", "SABSL", "SDLBSL", "SMATA", "SLBSL", "SKBBL", "SMFDB", "SMB", "SWBBL", "SMFBS", "SLBBL", "USLB", "VLBS", "WNLB"},
+		"commercial_banks":             {"ADBL", "BOKL", "CCBL", "CZBIL", "CBL", "EBL", "GBIME", "KBL", "LBL", "MBL", "MEGA", "NABIL", "NBL", "NCCB", "SBI", "NICA", "NMB", "PRVU", "PCBL", "SANIMA", "SBL", "SCB", "SRBL"},
+		"non_life_insurance":           {"AIL", "EIC", "GIC", "HGI", "IGI", "LGIL", "NIL", "NICL", "NLG", "PRIN", "PIC", "PICL", "RBCL", "SIC", "SGI", "SICL", "SIL", "UIC"},
+		"hydro_powers":                 {"AKJCL", "API", "AKPL", "AHPC", "BARUN", "BNHC", "BPCL", "CHL", "CHCL", "DHPL", "GHL", "GLH", "HDHPC", "HURJA", "HPPL", "JOSHI", "KPCL", "KKHC", "LEC", "MBJC", "MKJC", "MEN", "MHNL", "NHPC", "NHDL", "NGPL", "NYADI", "PMHPL", "PPCL", "RADHI", "RHPL", "RURU", "SAHAS", "SPC", "SHPC", "SJCL", "SSHL", "SHEL", "SPDL", "TPC", "UNHPL", "UMRH", "UMHL", "UPCL", "UPPER"},
+		"life_insurance":               {"ALICL", "GLICL", "JLI", "LICN", "NLICL", "NLIC", "PLI", "PLIC", "RLI", "SLI", "SLICL", "ULI"},
+		"finance":                      {"BFC", "CFCL", "GFCL", "GMFIL", "GUFL", "ICFC", "JFL", "MFIL", "MPFL", "NFS", "PFL", "PROFL", "RLFL", "SFCL", "SIFC"},
+		"tradings":                     {"BBC", "STC"},
+		"manufacturing_and_processing": {"BNT", "HDL", "SHIVM", "UNL"},
+		"investment":                   {"CHDC", "CIT", "ENL", "HIDCL", "NIFRA", "NRN"},
+		"hotels":                       {"CGH", "OHL", "SHL", "TRH"},
+		"development_banks":            {"CORBL", "EDBL", "GBBL", "GRDBL", "JBBL", "KSBBL", "KRBL", "LBBL", "MLBL", "MDB", "MNBBL", "NABBC", "SAPDBL", "SADBL", "SHINE", "SINDU"},
+		"mutual_fund":                  {"KEF", "LUK", "NEF", "NIBLPF"},
+		"other":                        {"NTC", "NRIC"},
+	}
+
+	var realSector string
+
+	for sectorName, sectorScrip := range sector {
+		for _, scrip := range sectorScrip {
+			if scrip == scripIn {
+				realSector = sectorName
+			}
+		}
+	}
+
 	//models.DB.Find(&historics)
 
-	if err := models.DB.Where("scrip = ? AND time > 1622732399", c.Param("scrip")).Table(c.Param("sector")).Find(&historics).Error; err != nil {
+	if err := models.DB.Where("scrip = ? AND time > 1622732399", c.Param("scrip")).Table(realSector).Find(&historics).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
