@@ -92,6 +92,20 @@ func GetSubIndex(c *gin.Context) {
 	c.JSON(http.StatusOK, subIndices)
 }
 
+//get Indiviual stock data
+func GetStockByScrip(c *gin.Context) {
+
+	//TODO: should be replaced with new model based on scraped data
+	var stock models.Stock
+
+	scrip := c.Params.ByName("scrip")
+
+	//TODO: should be updated according to new table in database
+	models.DB.First(&stock, "StockName = ?", scrip)
+
+	c.JSON(http.StatusOK, stock)
+}
+
 //get NEPSE data
 func GetNepse(c *gin.Context) {
 	var nepse models.Index
