@@ -50,6 +50,8 @@ func setupRouter() *gin.Engine {
 
 	public.POST("/login", controllers.Login)
 	public.POST("/register", controllers.Register)
+	//get individual user details
+	admin.GET("/user/:username", controllers.GetUserByUsername)
 
 	public.GET("/stocks", controllers.GetStocks)
 	public.GET("/broker", controllers.GetBroker)

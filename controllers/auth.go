@@ -103,6 +103,8 @@ func SignIn(username, password string) (string, error) {
 
 type RegisterInput struct {
 	Username string `json:"username" binding:"required"`
+	Fullname string `json:"fullname" binding:"required"`
+	Email    string `json:"email" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
 
@@ -122,7 +124,7 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	user := models.User{Username: input.Username, Password: input.Password}
+	user := models.User{Username: input.Username, Fullname: input.Fullname, Email: input.Email, Password: input.Password}
 
 	user.Prepare()
 
@@ -144,4 +146,16 @@ func Register(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "registration success", "data": res})
 
+}
+
+//get userdetails by username
+func GetUserByUsername(c *gin.Context) {
+	username := c.Param("username")
+	user := models.User{}
+	err := models.DB.Where("username = ?", username).First(&user).Error
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, user)
 }
