@@ -53,6 +53,9 @@ func setupRouter() *gin.Engine {
 	//get individual user details
 	admin.GET("/user/:username", controllers.GetUserByUsername)
 
+	//news scrape on request
+	public.GET("/news", controllers.GetNews)
+
 	public.GET("/stocks", controllers.GetStocks)
 	public.GET("/broker", controllers.GetBroker)
 	public.GET("/sector", controllers.GetSector)

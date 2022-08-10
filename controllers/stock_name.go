@@ -1,7 +1,11 @@
 package controllers
 
 import (
+	"encoding/json"
+	"fmt"
 	"goapi/models"
+	"io/ioutil"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -169,4 +173,31 @@ func GetNepseHistory(c *gin.Context) {
 	// models.DB.Where("scrip = ?", c.Param("scrip")).Table(c.Param("sector")).Count(&total_data)
 
 	c.JSON(http.StatusOK, historics)
+}
+
+//scrape and send data through api
+func GetNews(c *gin.Context) {
+
+	resp, err := http.Get("https://nepsealpha.com/api/smx9841/get_remaining_news")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var news interface{}
+
+	err = json.Unmarshal([]byte(body), &news)
+
+	if err != nil {
+		fmt.Println("error", err)
+	}
+	fmt.Println("news scrapped")
+
+	c.JSON(http.StatusOK, news)
 }
