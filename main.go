@@ -1,14 +1,16 @@
 package main
 
 import (
+	"fmt"
 	"reflect"
 	"sync"
+	"time"
 
 	"goapi/controllers"
 	"goapi/middlewares"
 	"goapi/models"
 
-	//sp "goapi/spiders"
+	sp "goapi/spiders"
 	"goapi/utils"
 
 	"github.com/gin-contrib/cors"
@@ -29,6 +31,7 @@ func main() {
 	// sp.NepseDetails()
 	// sp.IndexDetails()
 	//sp.NepseIndexHistory()
+	go doEvery(10 * time.Second)
 	r := setupRouter()
 	_ = r.Run(":8080")
 
@@ -82,6 +85,13 @@ func setupRouter() *gin.Engine {
 	admin.GET("/portfolios/:username/:scrip", controllers.DeletePortfolio)
 
 	return r
+}
+
+func doEvery(d time.Duration) {
+	for range time.Tick(d) {
+		fmt.Println("Live data Scrapped")
+		sp.LiveDetails()
+	}
 }
 
 type defaultValidator struct {

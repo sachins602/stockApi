@@ -11,7 +11,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func NepseDetails() {
+func LiveDetails() {
 
 	resp, err := http.Get("https://merolagani.com/handlers/webrequesthandler.ashx?type=market_summary")
 	if err != nil {
@@ -25,14 +25,14 @@ func NepseDetails() {
 		log.Fatal(err)
 	}
 
-	var nepseInfo database.NepseInfo
+	var nepseInfo database.NepseLiveInfo
 
 	err = json.Unmarshal([]byte(body), &nepseInfo)
 
 	if err == nil {
 		fmt.Println("error", err)
 	}
-	database.SaveDetailsToDb(nepseInfo)
+	database.SaveLiveDetailsToDb(nepseInfo)
 }
 
 // CREATE TABLE stocks(
