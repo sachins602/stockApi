@@ -14,6 +14,7 @@ import (
 
 func NepseIndexHistory() {
 
+	// loading from env not working needs work
 	resp, err := http.Get(os.Getenv("HISTORY_LINK"))
 	if err != nil {
 		log.Fatal(err)

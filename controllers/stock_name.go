@@ -119,7 +119,7 @@ func GetNepse(c *gin.Context) {
 func GetNepseIndexHistory(c *gin.Context) {
 	var nepseHistoric []models.Historic
 
-	if err := models.DB.Where("time > 1635865190").Table("historic").Find(&nepseHistoric).Error; err != nil {
+	if err := models.DB.Where("time > 1649257140").Table("historic").Find(&nepseHistoric).Error; err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 	}
 	c.JSON(http.StatusOK, nepseHistoric)

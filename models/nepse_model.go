@@ -1,7 +1,6 @@
 package models
 
 type Historic struct {
-	Scrip  string  `json:"Scrip" gorm:"column:Scrip"`
 	Time   float64 `json:"Time" gorm:"column:Time"`
 	Close  float64 `json:"Close" gorm:"column:Close"`
 	Open   float64 `json:"Open" gorm:"column:Open"`
