@@ -8,33 +8,7 @@ import (
 	"goapi/models"
 
 	"github.com/gin-gonic/gin"
-	"github.com/unknwon/com"
 )
-
-func GetPortfolios(c *gin.Context) {
-
-	var portfolios []models.Portfolio
-
-	page := com.StrTo(c.Query("page")).MustInt()
-	if page < 1 {
-		page = 1
-	}
-
-	limit := com.StrTo(c.Query("limit")).MustInt()
-	if limit < 1 {
-		limit = 10
-	}
-
-	offset := (page - 1) * limit
-
-	models.DB.Limit(limit).Offset(offset).Order("id desc").Find(&portfolios)
-
-	var total_data int64
-	models.DB.Table("portfolios").Count(&total_data)
-
-	c.JSON(http.StatusOK, gin.H{"page": page, "limit": limit, "total": total_data, "data": portfolios})
-
-}
 
 type CreatePortfolioInput struct {
 	Scrip string  `json:"scrip" binding:"required"`
@@ -83,15 +57,17 @@ type UpdatePortfolioInput struct {
 func UpdatePortfolio(c *gin.Context) {
 	// Get model if exist
 	var portfolio models.Portfolio
-	if err := models.DB.Where("username = ?", c.Param("username")).Find(&portfolio).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
-		return
-	}
 
+	var currentUser = md.GetCurrentUser()
 	// Validate input
 	var input UpdatePortfolioInput
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := models.DB.Where("username = ? AND scrip = ?", currentUser, input.Scrip).First(&portfolio).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
 

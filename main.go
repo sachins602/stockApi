@@ -1,16 +1,17 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"reflect"
 	"sync"
-	"time"
+
+	//"time"
 
 	"goapi/controllers"
 	"goapi/middlewares"
 	"goapi/models"
 
-	sp "goapi/spiders"
+	//sp "goapi/spiders"
 	"goapi/utils"
 
 	"github.com/gin-contrib/cors"
@@ -31,7 +32,7 @@ func main() {
 	// sp.NepseDetails()
 	// sp.IndexDetails()
 	//sp.NepseIndexHistory()
-	go doEvery(10 * time.Second)
+	//go doEvery(10 * time.Second)
 	r := setupRouter()
 	_ = r.Run(":8080")
 
@@ -78,7 +79,6 @@ func setupRouter() *gin.Engine {
 	public.GET("/nepseHistory/:scrip", controllers.GetNepseHistory)
 
 	//porfolio CRUD
-	admin.GET("/portfolios", controllers.GetPortfolios)
 	admin.POST("/portfolios", controllers.CreatePortfolio)
 	admin.GET("/portfolios/:username", controllers.GetPortfolioByID)
 	admin.PATCH("/portfolios/:username", controllers.UpdatePortfolio)
@@ -87,12 +87,12 @@ func setupRouter() *gin.Engine {
 	return r
 }
 
-func doEvery(d time.Duration) {
-	for range time.Tick(d) {
-		fmt.Println("Live data Scrapped")
-		sp.LiveDetails()
-	}
-}
+// func doEvery(d time.Duration) {
+// 	for range time.Tick(d) {
+// 		fmt.Println("Live data Scrapped")
+// 		sp.LiveDetails()
+// 	}
+// }
 
 type defaultValidator struct {
 	once     sync.Once
