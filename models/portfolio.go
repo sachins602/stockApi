@@ -14,10 +14,11 @@ type Portfolio struct {
 
 type PortfolioResponseForTable struct {
 	gorm.Model
-	Username  string  `json:"username"`
-	Scrip     string  `json:"scrip"`
-	Total     float64 `json:"total"`
-	Price     float64 `json:"price"`
-	LastPrice float64 `json:"lastPrice" gorm:"column:LastPrice"`
-	Open      float64 `json:"open" gorm:"column:Open"`
+	Username    string  `json:"username"`
+	Scrip       string  `json:"scrip"`
+	Total       float64 `json:"total"`
+	Price       float64 `json:"price"`
+	LastPrice   float64 `json:"lastPrice" gorm:"column:LastPrice"`
+	Open        float64 `json:"open" gorm:"column:Open"`
+	TotalProfit float64 `json:"totalProfit" gorm:"column:TotalProfit"`
 }

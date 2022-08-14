@@ -36,7 +36,7 @@ func CreatePortfolio(c *gin.Context) {
 func GetPortfolioByID(c *gin.Context) {
 	var portfolio []models.PortfolioResponseForTable
 
-	query := fmt.Sprintf("SELECT portfolios.*, stocks.LastPrice, stocks.Open FROM portfolios LEFT JOIN stocks ON portfolios.scrip = stocks.StockName WHERE portfolios.username = '%s' ORDER BY portfolios.created_at;", c.Param("username"))
+	query := fmt.Sprintf("SELECT portfolios.*, stocks.LastPrice, stocks.Open, (portfolios.total * stocks.LastPrice) - (portfolios.total * portfolios.price) as TotalProfit FROM portfolios LEFT JOIN stocks ON portfolios.scrip = stocks.StockName WHERE portfolios.username = '%s' ORDER BY portfolios.created_at;", c.Param("username"))
 
 	if err := models.DB.Raw(query).Scan(&portfolio).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
