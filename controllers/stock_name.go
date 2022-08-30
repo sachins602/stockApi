@@ -100,12 +100,12 @@ func GetSubIndex(c *gin.Context) {
 func GetStockByScrip(c *gin.Context) {
 
 	//TODO: should be replaced with new model based on scraped data
-	var stock models.Stock
+	var stock models.CompanyDetails
 
 	scrip := c.Params.ByName("scrip")
 
 	//TODO: should be updated according to new table in database
-	models.DB.First(&stock, "StockName = ?", scrip)
+	models.DB.First(&stock, "scrip = ?", scrip)
 
 	c.JSON(http.StatusOK, stock)
 }
@@ -174,6 +174,53 @@ func GetNepseHistory(c *gin.Context) {
 
 	c.JSON(http.StatusOK, historics)
 }
+
+// get prediction data
+func GetNepseHistoryPrediction(c *gin.Context) {
+	var historics []models.HistoricPrediction
+
+	var scripIn string = c.Param("scrip")
+
+	sector := map[string][]string{
+		"corporate_debentures_predictions":         {"NICAD8283", "NBLD85"},
+		"microfinance_predictions":                 {"ACLBSL", "ALBSL", "CBBL", "CLBSL", "DDBL", "FMDBL", "FOWAD", "GMFBS", "GILB", "GBLBS", "GLBSL", "ILBS", "JALPA", "JSLBB", "JBLB", "KMCDB", "KLBSL", "LLBS", "MLBSL", "MSLB", "MKLB", "MLBS", "MERO", "MMFDB", "MLBBL", "NSLB", "NLBBL", "NESDO", "NICLBSL", "NUBL", "RULB", "RMDC", "RSDC", "SABSL", "SDLBSL", "SMATA", "SLBSL", "SKBBL", "SMFDB", "SMB", "SWBBL", "SMFBS", "SLBBL", "USLB", "VLBS", "WNLB"},
+		"commercial_banks_predictions":             {"ADBL", "BOKL", "CCBL", "CZBIL", "CBL", "EBL", "GBIME", "KBL", "LBL", "MBL", "MEGA", "NABIL", "NBL", "NCCB", "SBI", "NICA", "NMB", "PRVU", "PCBL", "SANIMA", "SBL", "SCB", "SRBL"},
+		"non_life_insurance_predictions":           {"AIL", "EIC", "GIC", "HGI", "IGI", "LGIL", "NIL", "NICL", "NLG", "PRIN", "PIC", "PICL", "RBCL", "SIC", "SGI", "SICL", "SIL", "UIC"},
+		"hydro_powers_predictions":                 {"AKJCL", "API", "AKPL", "AHPC", "BARUN", "BNHC", "BPCL", "CHL", "CHCL", "DHPL", "GHL", "GLH", "HDHPC", "HURJA", "HPPL", "JOSHI", "KPCL", "KKHC", "LEC", "MBJC", "MKJC", "MEN", "MHNL", "NHPC", "NHDL", "NGPL", "NYADI", "PMHPL", "PPCL", "RADHI", "RHPL", "RURU", "SAHAS", "SPC", "SHPC", "SJCL", "SSHL", "SHEL", "SPDL", "TPC", "UNHPL", "UMRH", "UMHL", "UPCL", "UPPER"},
+		"life_insurance_predictions":               {"ALICL", "GLICL", "JLI", "LICN", "NLICL", "NLIC", "PLI", "PLIC", "RLI", "SLI", "SLICL", "ULI"},
+		"finance_predictions":                      {"BFC", "CFCL", "GFCL", "GMFIL", "GUFL", "ICFC", "JFL", "MFIL", "MPFL", "NFS", "PFL", "PROFL", "RLFL", "SFCL", "SIFC"},
+		"tradings_predictions":                     {"BBC", "STC"},
+		"manufacturing_and_processing_predictions": {"BNT", "HDL", "SHIVM", "UNL"},
+		"investment_predictions":                   {"CHDC", "CIT", "ENL", "HIDCL", "NIFRA", "NRN"},
+		"hotels_predictions":                       {"CGH", "OHL", "SHL", "TRH"},
+		"development_banks_predictions":            {"CORBL", "EDBL", "GBBL", "GRDBL", "JBBL", "KSBBL", "KRBL", "LBBL", "MLBL", "MDB", "MNBBL", "NABBC", "SAPDBL", "SADBL", "SHINE", "SINDU"},
+		"mutual_fund_predictions":                  {"KEF", "LUK", "NEF", "NIBLPF"},
+		"other_predictions":                        {"NTC", "NRIC"},
+	}
+
+	var realSector string
+
+	for sectorName, sectorScrip := range sector {
+		for _, scrip := range sectorScrip {
+			if scrip == scripIn {
+				realSector = sectorName
+			}
+		}
+	}
+
+	//models.DB.Find(&historics)
+
+	if err := models.DB.Where("scrip = ? AND time > 1622732399", c.Param("scrip")).Table(realSector).Find(&historics).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		return
+	}
+
+	// var total_data int64
+	// models.DB.Where("scrip = ?", c.Param("scrip")).Table(c.Param("sector")).Count(&total_data)
+
+	c.JSON(http.StatusOK, historics)
+}
+
 
 //scrape and send data through api
 func GetNews(c *gin.Context) {

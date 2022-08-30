@@ -7,14 +7,15 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
+
+	//"os"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func IndexDetails() {
 
-	resp, err := http.Get(os.Getenv("INDEX_LINK"))
+	resp, err := http.Get("https://nepsealpha.com/api/smx9841/dashboard_board")
 	if err != nil {
 		log.Fatal(err)
 	}

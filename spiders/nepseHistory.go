@@ -7,7 +7,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
+
+	//"os"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -15,7 +16,7 @@ import (
 func NepseIndexHistory() {
 
 	// loading from env not working needs work
-	resp, err := http.Get(os.Getenv("HISTORY_LINK"))
+	resp, err := http.Get("https://nepsealpha.com/trading/1/history?symbol=NEPSE&resolution=1D&from=1325355300&to=1661299200&pass=ok&force=23757&currencyCode=NRS")
 	if err != nil {
 		log.Fatal(err)
 	}

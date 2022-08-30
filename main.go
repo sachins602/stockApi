@@ -2,6 +2,7 @@ package main
 
 import (
 	//"fmt"
+
 	"reflect"
 	"sync"
 
@@ -30,9 +31,9 @@ func main() {
 	}
 
 	// sp.NepseDetails()
-	// sp.IndexDetails()
+	//sp.IndexDetails()
 	//sp.NepseIndexHistory()
-	//go doEvery(10 * time.Second)
+	// go doEvery(10 * time.Second)
 	r := setupRouter()
 	_ = r.Run(":8080")
 
@@ -77,6 +78,7 @@ func setupRouter() *gin.Engine {
 	public.GET("/nepse", controllers.GetNepse)
 	public.GET("/nepseHistoric", controllers.GetNepseIndexHistory)
 	public.GET("/nepseHistory/:scrip", controllers.GetNepseHistory)
+	public.GET("/nepseHistoryPrediction/:scrip", controllers.GetNepseHistoryPrediction)
 
 	//porfolio CRUD
 	admin.POST("/portfolios", controllers.CreatePortfolio)
