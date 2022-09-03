@@ -11,8 +11,8 @@ type IndexInfo struct {
 	Date      string `json:"date"`
 	HomeTable []struct {
 		Five0_200Sma interface{} `json:"_50_200_sma"`
-		Alpha        string      `json:"alpha"`
-		Beta         string      `json:"beta"`
+		Alpha        float32      `json:"alpha"`
+		Beta         float32      `json:"beta"`
 		CreatedAt    string      `json:"created_at"`
 		DailyGain    string      `json:"daily_gain"`
 		FullName     string      `json:"full_name"`
@@ -25,8 +25,8 @@ type IndexInfo struct {
 			TurnOverValue  string `json:"turn_over_value"`
 		} `json:"indexvalue"`
 		Investors         interface{} `json:"investors"`
-		Ltp               string      `json:"ltp"`
-		Macd              string      `json:"macd"`
+		Ltp               float32      `json:"ltp"`
+		Macd              float64      `json:"macd"`
 		Macdsignal        string      `json:"macdsignal"`
 		Orders            int64       `json:"orders"`
 		Pb                string      `json:"pb"`
@@ -35,10 +35,10 @@ type IndexInfo struct {
 		Peg               string      `json:"peg"`
 		Roa               string      `json:"roa"`
 		Roe               string      `json:"roe"`
-		Rsi               string      `json:"rsi"`
+		Rsi               float64      `json:"rsi"`
 		SeasonalInvestors interface{} `json:"seasonal_investors"`
 		SharpeRatio       string      `json:"sharpe_ratio"`
-		Sma200            string      `json:"sma_200"`
+		Sma200            float32      `json:"sma_200"`
 		Sparkline         struct {
 			Current []string `json:"current"`
 			Max     string   `json:"max"`
@@ -75,7 +75,7 @@ func SaveIndexDetailsToDb(index IndexInfo) {
 	}
 
 	db.Exec("CREATE TABLE IF NOT EXISTS indices (`IndexName` VARCHAR(100) PRIMARY KEY, `FullName` VARCHAR(100), `Turnover` DOUBLE, `DailyGain` DOUBLE, `TotalPositiveGainer` DOUBLE, `TotalNegativeGainer` DOUBLE, `Pe` DOUBLE, `Pb` DOUBLE, `Peg` DOUBLE, `Roe` DOUBLE, `Alpha` DOUBLE, `Beta` DOUBLE,`SharpeRatio` DOUBLE, `Macd` DOUBLE,`Rsi` DOUBLE, `YearlyPercentChange` DOUBLE, `MacdSignal` DOUBLE, `SmaTwo` DOUBLE,`Ltp` DOUBLE, `TotalDividendYield` DOUBLE,`Roa` DOUBLE);")
-
+	db.Exec("DELETE FROM indices")
 	for _, v := range index.HomeTable {
 
 		ins, err := db.Prepare("INSERT INTO indices(`IndexName`, `FullName`, `Turnover`, `DailyGain`, `TotalPositiveGainer`, `TotalNegativeGainer`, `Pe`, `Pb`, `Peg`, `Roe`, `Alpha`, `Beta`, `SharpeRatio`, `Macd`, `Rsi`, `YearlyPercentChange`, `MacdSignal`, `SmaTwo`, `Ltp`, `TotalDividendYield`, `Roa`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);")

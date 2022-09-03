@@ -84,7 +84,9 @@ func SaveDetailsToDb(nepseInfo NepseInfo) {
 	db.Exec("CREATE TABLE IF NOT EXISTS stocks (`StockName` VARCHAR(100) PRIMARY KEY, `LastPrice` DOUBLE, `TurnOver` DOUBLE, `Change` DOUBLE, `High` DOUBLE, `Low` DOUBLE, `Open` DOUBLE, `ShareTraded` DOUBLE);")
 	db.Exec("CREATE TABLE IF NOT EXISTS sectors (`SectorName` VARCHAR(100) PRIMARY KEY, `Turnover` DOUBLE, `Quantity` DOUBLE);")
 	db.Exec("CREATE TABLE IF NOT EXISTS brokers (`BrokerNumber` Double PRIMARY KEY, `BrokerName` VARCHAR(100), `Purchase` DOUBLE, `Sales` DOUBLE, `Matching` DOUBLE, `Total` DOUBLE);")
-
+	db.Exec("DELETE FROM stocks;")
+	db.Exec("DELETE FROM sectors;")
+	db.Exec("DELETE FROM brokers;")
 	for _, v := range nepseInfo.Turnover.Detail {
 		// stockName = append(stockName, v.S)
 		// lastPrice = append(lastPrice, v.Lp)

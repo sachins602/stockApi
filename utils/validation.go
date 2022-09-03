@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-var BookableDate validator.Func = func(fl validator.FieldLevel) bool {
+var BullishMarket validator.Func = func(fl validator.FieldLevel) bool {
 	date, ok := fl.Field().Interface().(time.Time)
 	fmt.Println(date,ok)
 	if ok {

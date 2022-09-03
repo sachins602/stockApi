@@ -25,7 +25,8 @@ func SaveIndexHistoryToDb(nepseHistory HistoryData) {
 	defer db.Close()
 	db.Exec("CREATE TABLE IF NOT EXISTS historic (`Scrip` VARCHAR(100), `Time` DOUBLE  PRIMARY KEY, `Close` DOUBLE)")
 	db.Exec("CREATE TABLE IF NOT EXISTS historicChart (`Time` DOUBLE  PRIMARY KEY, `Close` DOUBLE, `Open` DOUBLE, `High` DOUBLE, `Low` DOUBLE, `Volume` DOUBLE)")
-
+	db.Exec("DELETE FROM historic;")
+	db.Exec("DELETE FROM historicChart;")
 	fmt.Println("here")
 
 	for j := 0; j < len(nepseHistory.T); j++ {

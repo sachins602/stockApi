@@ -1,12 +1,12 @@
 package main
 
 import (
-	//"fmt"
+	// "fmt"
 
 	"reflect"
 	"sync"
 
-	//"time"
+	// "time"
 
 	"goapi/controllers"
 	"goapi/middlewares"
@@ -27,11 +27,11 @@ func main() {
 
 	//register custom validations
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
-		v.RegisterValidation("bookabledate", utils.BookableDate)
+		v.RegisterValidation("bullishmarket", utils.BullishMarket)
 	}
 
 	// sp.NepseDetails()
-	//sp.IndexDetails()
+	// sp.IndexDetails()
 	// sp.NepseIndexHistory()
 	// go doEvery(10 * time.Second)
 	r := setupRouter()

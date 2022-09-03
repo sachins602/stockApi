@@ -94,7 +94,7 @@ type CompanyDetails struct {
 	Sector                 string `json:"Sector" gorm:"column:sector"`
 	ShareOutstanding       string `json:"ShareOutstanding" gorm:"column:share_outstanding"`
 	MarketPrice            string `json:"MarketPrice" gorm:"column:market_price"`
-	PercentChange          string `json:"PercentChange" gorm:"column:percent_change"`
+	PercentChange          string `json:"PercentChange" gorm:"column:percentage_change"`
 	LastTradedOn           string `json:"LastTradedOn" gorm:"column:last_traded_on"`
 	FifitytwoWeekHighLow   string `json:"FifitytwoWeekHighLow" gorm:"column:fifitytwo_week_high_low"`
 	OnehundredeightyDayAvg string `json:"OnehundredeightyDayAvg" gorm:"column:onehundredeighty_day_avg"`
