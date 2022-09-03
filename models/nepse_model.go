@@ -14,6 +14,14 @@ type HistoricPrediction struct {
 	Prediction   float64 `json:"Prediction" gorm:"column:Prediction"`
 }
 
+type NepseHistoricPrediction struct {
+	Scrip  string `json:"Scrip" gorm:"column:Scrip"`
+	Time   float64 `json:"Time" gorm:"column:Time"`
+	Close  float64 `json:"Close" gorm:"column:Close"`
+	LstmPrediction   float64 `json:"LstmPrediction" gorm:"column:lstm_prediction"`
+	GruPrediction   float64 `json:"GruPrediction" gorm:"column:gru_prediction"`
+}
+
 type Stock struct {
 	StockName   string  `json:"StockName" gorm:"column:StockName"`
 	LastPrice   float64 `json:"LastPrice" gorm:"column:LastPrice"`

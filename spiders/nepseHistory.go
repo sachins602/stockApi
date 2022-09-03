@@ -16,7 +16,7 @@ import (
 func NepseIndexHistory() {
 
 	// loading from env not working needs work
-	resp, err := http.Get("https://nepsealpha.com/trading/1/history?symbol=NEPSE&resolution=1D&from=1325355300&to=1661299200&pass=ok&force=23757&currencyCode=NRS")
+	resp, err := http.Get("https://nepsealpha.com/trading/1/history?symbol=NEPSE&resolution=1D&from=1325355300&to=1662336000&pass=ok&force=21812&currencyCode=NRS")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -28,6 +28,7 @@ func NepseIndexHistory() {
 		log.Fatal(err)
 	}
 
+
 	var historyData database.HistoryData
 
 	err = json.Unmarshal([]byte(body), &historyData)
@@ -35,5 +36,6 @@ func NepseIndexHistory() {
 	if err != nil {
 		fmt.Println("error", err)
 	}
+	fmt.Println(historyData)
 	database.SaveIndexHistoryToDb(historyData)
 }

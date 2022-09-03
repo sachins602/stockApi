@@ -123,7 +123,7 @@ func GetNepse(c *gin.Context) {
 func GetNepseIndexHistory(c *gin.Context) {
 	var nepseHistoric []models.Historic
 
-	if err := models.DB.Where("time > 1649257140").Table("historic").Find(&nepseHistoric).Error; err != nil {
+	if err := models.DB.Where("time > 1646665140").Table("historicChart").Find(&nepseHistoric).Error; err != nil {
 		c.AbortWithStatus(http.StatusNotFound)
 	}
 	c.JSON(http.StatusOK, nepseHistoric)
@@ -220,6 +220,27 @@ func GetNepseHistoryPrediction(c *gin.Context) {
 
 	c.JSON(http.StatusOK, historics)
 }
+
+// get nepse prediction data from nepse_prediction_test table
+func GetNepsePrediction(c *gin.Context) {
+	var nepseHistoric []models.NepseHistoricPrediction
+
+	if err := models.DB.Table("nepse_prediction_test").Find(&nepseHistoric).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+	}
+	c.JSON(http.StatusOK, nepseHistoric)
+}
+
+// get nepse prediction data from nepse_prediction_test table for one day
+func GetNepseOneDayPrediction(c *gin.Context) {
+	var nepseHistoric models.NepseHistoricPrediction
+
+	if err := models.DB.Where("Time = 1662209940").Table("nepse_prediction_test").First(&nepseHistoric).Error; err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+	}
+	c.JSON(http.StatusOK, nepseHistoric)
+}
+
 
 
 //scrape and send data through api

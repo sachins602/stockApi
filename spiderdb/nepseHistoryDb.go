@@ -23,7 +23,10 @@ func SaveIndexHistoryToDb(nepseHistory HistoryData) {
 		panic(err.Error())
 	}
 	defer db.Close()
-	db.Exec("CREATE TABLE IF NOT EXISTS historic (`Time` DOUBLE  PRIMARY KEY, `Close` DOUBLE, `Open` DOUBLE, `High` DOUBLE, `Low` DOUBLE, `Volume` DOUBLE)")
+	db.Exec("CREATE TABLE IF NOT EXISTS historic (`Scrip` VARCHAR(100), `Time` DOUBLE  PRIMARY KEY, `Close` DOUBLE)")
+	db.Exec("CREATE TABLE IF NOT EXISTS historicChart (`Time` DOUBLE  PRIMARY KEY, `Close` DOUBLE, `Open` DOUBLE, `High` DOUBLE, `Low` DOUBLE, `Volume` DOUBLE)")
+
+	fmt.Println("here")
 
 	for j := 0; j < len(nepseHistory.T); j++ {
 		o := nepseHistory.O[j]
@@ -33,7 +36,11 @@ func SaveIndexHistoryToDb(nepseHistory HistoryData) {
 		v := nepseHistory.V[j]
 		t := nepseHistory.T[j]
 
-		query := fmt.Sprintf("INSERT INTO historic (`Time`, `Close`, `Open`, `High`, `Low`, `Volume`) VALUES (%d, %s, %s, %s, %s, %s)", t, c, o, h, l, v)
+		queryChart := fmt.Sprintf("INSERT INTO historicChart (`Time`, `Close`, `Open`, `High`, `Low`, `Volume`) VALUES (%d, %s, %s, %s, %s, %s)", t, c, o, h, l, v)
+		query := fmt.Sprintf("INSERT INTO historic (`Scrip`, `Time`, `Close`) VALUES (%s, %d, %s)", `"Nepse"`, t, c)
+
+		fmt.Println(query)
+		db.Exec(queryChart)
 		db.Exec(query)
 
 	}
