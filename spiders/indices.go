@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	//"os"
 
@@ -15,7 +16,7 @@ import (
 
 func IndexDetails() {
 
-	resp, err := http.Get("https://nepsealpha.com/api/smx9841/dashboard_board")
+	resp, err := http.Get(os.Getenv("INDEX_LINK"))
 	if err != nil {
 		log.Fatal(err)
 	}

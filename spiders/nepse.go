@@ -7,13 +7,14 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func NepseDetails() {
 
-	resp, err := http.Get("https://merolagani.com/handlers/webrequesthandler.ashx?type=market_summary")
+	resp, err := http.Get(os.Getenv("LIVE_LINK"))
 	if err != nil {
 		log.Fatal(err)
 	}
